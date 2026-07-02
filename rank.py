@@ -4,6 +4,15 @@ from datetime import date, datetime
 from sentence_transformers import CrossEncoder
 from sentence_transformers import SentenceTransformer, util
 import re
+import argparse
+parser = argparse.ArgumentParser(
+    description='Rank candidates against a job description.')
+parser.add_argument('--candidates', required=True,
+                    help='Path to candidates file (.json or .jsonl)')
+parser.add_argument('--jd', default='data/job_description.docx',
+                    help='Path to JD (.docx, .txt, .json)')
+parser.add_argument('--out', default='submission.csv', help='Output CSV path')
+args = parser.parse_args()
 TOP_RERANK = 500
 TOP_OUTPUT = 100
 
@@ -85,7 +94,7 @@ def extract_jd_fields(text):
     }
 
 
-JD = load_jd('data/job_description.docx')
+JD = load_jd(args.jd)
 JOB_DESCRIPTION = JD['raw']
 JD_FIELDS = JD['fields']
 
@@ -486,7 +495,7 @@ def score_career_relevance(candidate):
 all_scores = []
 
 
-candidates = load_candidates('data/candidates.jsonl')
+candidates = load_candidates(args.candidates)
 
 print("Loading embedding model...")
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
@@ -627,7 +636,7 @@ def generate_reasoning(candidate, scores):
     return reasoning[:300]
 
 
-with open('submission.csv', 'w', newline='', encoding='utf-8') as f:
+with open(args.out, 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(['candidate_id', 'rank', 'score', 'reasoning'])
 
