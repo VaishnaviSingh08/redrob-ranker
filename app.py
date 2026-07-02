@@ -5,6 +5,7 @@ import re
 from datetime import date, datetime
 import numpy as np
 import streamlit as st
+from sentence_transformers import util
 
 # ── Page config ───────────────────────────────────────────
 st.set_page_config(page_title="Candidate Ranking System",
