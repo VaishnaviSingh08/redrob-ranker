@@ -163,6 +163,11 @@ maxUploadSize = 500" > .streamlit/config.toml
 streamlit run app.py --server.port 8502
 
 ### Prepare data
+
+This project expects `data/candidates.jsonl` (the challenge dataset) to be placed 
+in the `data/` folder. This file is not included in the repo due to its size (465MB) 
+and is excluded via `.gitignore`.
+
 data/
  candidates.jsonl (candidate profiles)
  job_description.docx (job description)
