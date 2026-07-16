@@ -207,3 +207,7 @@ data/
  validate_submission.py
 
 Team Alcatraz — Built for the Redrob Data & AI Challenge*
+
+## Team Members
+  - Vaishnavi Singh
+  - Aashi Goyal
